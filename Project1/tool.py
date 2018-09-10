@@ -35,14 +35,3 @@ def Gauss_P(M, Ux, sz):
         sol[:,ii] = (Ux[:,ii] + sol[:,ii+1]) / M[:,ii]
     return(sol)
 ## 2 * (sz-3) + 1 FLOPS
-
-# Solving by LU factorization using scipy library.
-def LU_DSol(sz,Uy):
-# Create Tridiagonal Matrix
-    dd = np.array([-1 *np.ones(sz - 2),2 * np.ones(sz - 1),-1 * np.ones(sz - 2)])
-    config = [-1,0,1]
-    Mx = diags(dd,config).toarray()
-# Applying LU solving
-    P  = scipy.linalg.lu_factor(Mx)
-    sol_LU = scipy.linalg.lu_solve(P,Uy)
-    return(np.transpose(sol_LU))
