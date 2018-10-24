@@ -76,43 +76,46 @@ def accel(planets, SSystem):
 
 n, ftime, h, tt = initialsol()
 
-#P0 = get_planet('10', 988500e24)        # Sun
-#P1 = get_planet('199', 3.302e23)        # Mercury
-#P2 = get_planet('299', 48.685e23)       # Venus
-#P3 = get_planet('399', 5.97219e24)      # Earth
-#P4 = get_planet('499', 6.4171e23)       # Mars
-#P5 = get_planet('599', 1898.13e24)      # Jupiter
-#P6 = get_planet('699', 5.6834e26)       # Saturn
-#P7 = get_planet('799', 86.813e24)       # Uranus
-#P8 = get_planet('899', 102.413e24)      # Neptun
-#P9 = get_planet('999', 1.307e22)        # Pluton
+P0 = get_planet('10', 988500e24)        # Sun
+P1 = get_planet('199', 3.302e23)        # Mercury
+P2 = get_planet('299', 48.685e23)       # Venus
+P3 = get_planet('399', 5.97219e24)      # Earth
+P4 = get_planet('499', 6.4171e23)       # Mars
+P5 = get_planet('599', 1898.13e24)      # Jupiter
+P6 = get_planet('699', 5.6834e26)       # Saturn
+P7 = get_planet('799', 86.813e24)       # Uranus
+P8 = get_planet('899', 102.413e24)      # Neptun
+P9 = get_planet('999', 1.307e22)        # Pluton
 
-P0 = planet
-P1 = planet("earth", [1.,0.,0.], [0.,2.,0.], 3.003364344983656e-06)
+#P0 = planet
+#P1 = planet("earth", [1.,0.,0.], [0.,2.*math.pi,0.], 3.003364344983656e-06)
 
 
 # In[6]:
 
 
-#SSystem = [P0,P1,P2,P3,P4,P5,P6,P7,P8,P9]
+SSystem = [P0,P1,P2,P3,P4,P5,P6,P7,P8,P9]
 #SSystem = [P0,P3,P5]
-SSystem =[P0,P1]
+#SSystem =[P0,P1]
 
 while tt <= ftime:
     tt += h
+    # Calcualating accelearion for all planets in SSytem List at xi
     for planets in SSystem:
         planets.acc0 = accel(planets, SSystem)
 
+    # Start computation of next step values    
     for planets in SSystem:
         old_xyz = planets.xyz
         old_v3d = planets.v3d
         old_acc = -planets.acc0 * old_xyz
-        for ii in range(3):
+        for ii in range(3): #Computing new positions
             planets.xyz[ii] = old_xyz[ii] + h*old_v3d[ii] + 0.5*h*h*old_acc[ii]
+        # Calculating acceleration at xi+1
         new_acc = -planets.acc0 * planets.xyz
-        for ii in range(3):
+        for ii in range(3): #Calculating new velocity
             planets.v3d[ii] = old_v3d[ii] + 0.5*h*(old_acc[ii]+new_acc[ii])
-        planet.output(planets)
+        planet.output(planets) # Writing new positions to file
                       
 for planets in SSystem:
     planets.out.close()
