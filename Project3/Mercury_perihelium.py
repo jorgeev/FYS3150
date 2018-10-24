@@ -50,7 +50,7 @@ class planet:
 
 
 def initialsol():
-    n = 1e8 # Mesh points
+    n = 1e9# Mesh points
     ftime = 100. #Years to simulate
     h = ftime/n # Step size
     tt = 0. # initial counter
@@ -71,6 +71,7 @@ def accel(planets, SSystem):
             if planets.name == "mercury":
                 l=cpy.norm(np.cross(planets.xyz,planets.v3d))
                 rc=(3*l**2)/((planet.distance(planets,SSystem[0])**2)*c2)
+                acc = acc * (1+rc)
     acc = acc * pi4
     return acc    
 
