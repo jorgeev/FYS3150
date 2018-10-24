@@ -66,7 +66,7 @@ def accel(planets, SSystem):
     pi4 = 4. * math.pi**2
     for ii in range(0,len(SSystem)):
         if planets.name != SSystem[ii].name:   
-            acc += SSystem[ii].mass/ (SSystem[0].mass * (planet.distance(planets,SSystem[ii])**3))
+            acc += SSystem[ii].mass/ (planet.distance(planets,SSystem[ii])**3)
     acc = acc * pi4
     return acc
 
