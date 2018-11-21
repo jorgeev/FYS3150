@@ -75,7 +75,7 @@ def MCC(MCc, spins, MSpins, E, M, Eavr, E2av, Mavr, M2av, lMl, w):
         Eavr += E; E2av += E**2
         Mavr += M; M2av += M**2
         lMl += int(math.fabs(M))
-    return(Eavr, E2av, Mavr, M2av, lMl)
+    return(Eavr, E2av, M2av, lMl)
 
 
 def launcher(Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev, Mv, Temps, nspins, cycls, steps):
@@ -125,7 +125,7 @@ c0 = time.time()
 #Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev, Mv = nl(Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev, Mv, [Temps[0]], nspins, 1, 1)
 #print("Done")
 
-Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev, Mv = nl(Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev, Mv, Temps, nspins, cycls, steps)
+Energy, S_Heat, Susceptibility, lMagnetizationl, Ev, Mv = nl(Energy, S_Heat, Susceptibility, lMagnetizationl, Ev, Mv, Temps, nspins, cycls, steps)
 
 c1 = time.time()
 
@@ -134,7 +134,7 @@ print("Time elapsed: ", c1-c0, "sec.\n")
 
 # Temp       Energy      Variance   Sp_Heat    Magneti     absMagne   Variance  Suseptiblity
 aux = np.hstack((Temps.reshape(Temps.shape+(1,)),Energy.reshape(Energy.shape+(1,)), Ev.reshape(Ev.shape+(1,)),S_Heat.reshape(S_Heat.shape+(1,))))
-aux = np.hstack((aux, Magnetization.reshape(Magnetization.shape+(1,)),lMagnetizationl.reshape(lMagnetizationl.shape+(1,)),Mv.reshape(Mv.shape+(1,)),Susceptibility.reshape(Susceptibility.shape+(1,))))
+aux = np.hstack((aux, lMagnetizationl.reshape(lMagnetizationl.shape+(1,)),Mv.reshape(Mv.shape+(1,)),Susceptibility.reshape(Susceptibility.shape+(1,))))
 np.savetxt(name, aux, fmt='%0.6f', delimiter='   ')
 
 exit()
