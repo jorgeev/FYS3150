@@ -83,7 +83,7 @@ def launcher(Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev,
         Energy[stp],S_Heat[stp],Magnetization[stp],Susceptibility[stp],lMagnetizationl[stp], Ev[stp], Mv[stp] = nMC(Temps[stp], nspins, int(cycls))
     return(Energy, S_Heat, Magnetization, Susceptibility, lMagnetizationl, Ev, Mv)
 
-# Run parameters
+# Run parameters tu use from comand line you must input lattice size, initial temperature, final temperature, number of steps, number of montecarlo cycles per temperature
 if __name__== "__main__":
     args = sys.argv
     if len(args) > 5:
