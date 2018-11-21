@@ -37,7 +37,7 @@ def MC(temperature, spins, MCc, MSpins): # Temperature, Number of Spins, Number 
     VE = np.zeros(MCc+1)
     VM = np.zeros(MCc+1)
     
-    #Setup array for possible energy changes
+    # Sampling rule
     w = np.zeros(17,np.float64)
     for de in range(-8,9,4):
         w[de+8] = math.exp(-de/temperature)
